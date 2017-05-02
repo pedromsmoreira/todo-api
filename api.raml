@@ -1,0 +1,210 @@
+#%RAML 1.0
+title: Todo API
+version: v1
+baseUri: http://api.todo.com
+types:
+  TestType:
+    type: object
+    properties:
+      id: number
+      optional?: string
+      expanded:
+        type: object
+        properties:
+          count: number
+/todos:
+  description: Todo's base route. It is used to get all and create Todos.
+  get:
+    description: Return all available todo's
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+              [
+                {
+                  "_id": "5908a0f48c6854250cc505f2",
+                  "name": "Read nodejs server in 10 minutes",
+                  "__v": 0,
+                  "status": [
+                    "pending"
+                  ],
+                  "date": "2017-05-02T15:08:36.090Z"
+                },
+                {
+                  "_id": "5908a2e017293d1ae07322ed",
+                  "name": "Create Client application with aurelia.io",
+                  "__v": 0,
+                  "status": [
+                    "pending"
+                  ],
+                  "date": "2017-05-02T15:16:48.466Z"
+                }
+              ]
+              |
+              []
+    queryParameters:
+      status:
+        displayName: Status query filter
+        type: string
+        description: Query parameter for the todo status
+        example: pending
+        required: false
+      date:
+        displayName: Date
+        type: string
+        description: Date of the Todo
+        example: 2017-05-02
+        required: false
+      sort:
+        displayName: Sort
+        type: string
+        description: Sort order
+        example: -name, +name, -date, +date
+        required: false
+  post:
+    description: |
+      Create a Todo
+
+      Use application/x-www-form-urlencoded content type to create a todo with key value pair
+    body:
+      application/x-www-form-urlencoded:
+        properties:
+          name:
+            description: name of the todo
+            type: string
+            example: Read nodejs server in 10 minutes
+    responses:
+      201:
+        body:
+          application/json:
+            example: |
+              {
+                "_id": "5908a0f48c6854250cc505f2",
+                "name": "Read nodejs server in 10 minutes",
+                "__v": 0,
+                "status": [
+                  "pending"
+                ],
+                "date": "2017-05-02T15:08:36.090Z"
+              }
+      422:
+       body:
+         application/json:
+           example: |
+             {
+               "errorCode": 422,
+               "message": "The entity is invalid."
+             }
+  /{id}:
+    description: Route to get, update and delete a single Todo resource
+    get:
+      description: Get a single Todo based on the id
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                  {
+                    "_id": "5908a0f48c6854250cc505f2",
+                    "name": "Read nodejs server in 10 minutes",
+                    "__v": 0,
+                    "status": [
+                      "pending"
+                    ],
+                    "date": "2017-05-02T15:08:36.090Z"
+                  }
+        400:
+          body:
+            application/json:
+              example: |
+                {
+                  "errorCode": 400,
+                  "message": "The request is invalid."
+                }
+        404:
+          body:
+            application/json:
+              example: |
+                {
+                  "errorCode": 404,
+                  "message": "Entity not found."
+                }
+        500:
+          body:
+            application/json:
+              example: |
+                {
+                  "errorCode": 500,
+                  "message": "An error has occurred in the server. Please try again later."
+                }
+    patch:
+      description: Partial update to a single Todo based on the id
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                  {
+                    "status": [
+                      "ongoing"
+                    ]
+                  }
+        400:
+          body:
+            application/json:
+              example: |
+                {
+                  "errorCode": 400,
+                  "message": "The request is invalid."
+                }
+        403:
+          body:
+            application/json:
+              example: |
+                {
+                  "errorCode": 403,
+                  "message": "The property {id} is forbidden to be updated."
+                }
+        404:
+          body:
+            application/json:
+              example: |
+                {
+                  "errorCode": 404,
+                  "message": "Entity not found."
+                }
+        422:
+          body:
+            application/json:
+              example: |
+                {
+                  "errorCode": 422,
+                  "message": "The entity is invalid."
+                }
+        500:
+          body:
+            application/json:
+              example: |
+                {
+                  "errorCode": 500,
+                  "message": "An error has occurred in the server. Please try again later."
+                }
+    delete:
+      description: Delete a single Todo based on the id
+      responses:
+        204:
+          body:
+            application/json:
+              example: |
+                {
+                  "message": "No content"
+                }
+        409:
+          body:
+            application/json:
+              example: |
+                {
+                  "errorCode": 409,
+                  "message": "The request could not be completed due to a conflict."
+                }
