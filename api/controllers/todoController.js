@@ -1,7 +1,8 @@
 'use strict';
-
 var mongoose = require('mongoose'),
     Todo = mongoose.model('Todo');
+
+var jsonpatch = require('json-patch');
 
 exports.getAll = function(req, res) {
     Todo.find({}, function(err, todo) {
@@ -36,8 +37,17 @@ exports.post = function(req, res) {
 };
 
 // https://github.com/Starcounter-Jack/JSON-Patch
-exports.put = function(req, res) {
-    Todo.findOneAndUpdate(req.params.id, req.body, {new: true}, function(err, todo) {
+exports.patch = function(req, res) {
+    var domainTodo = Todo.findById(req.params.id, function(err, todo) {
+        if (err) {
+            res.send(err);
+        }
+        return todo;
+    });
+
+    jsonpatch.apply(domainTodo, req.body);
+    
+    Todo.findByIdAndUpdate(req.params.id, domainTodo, {new: true}, function(err, todo) {
         if (err) {
             res.send(err);
         }

@@ -8,7 +8,6 @@ app.route('/todos')
 
 app.route('/todos/:id')
     .get(todoController.get)
-    .put(todoController.put)
+    .patch(todoController.patch)
     .delete(todoController.delete);
-
 };
