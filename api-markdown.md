@@ -18,5 +18,7 @@ Route to get, update and delete a single Todo resource
 
 * **get**: Get a single Todo based on the id
 * **patch**: Partial update to a single Todo based on the id
+Apply json-patch
+
 * **delete**: Delete a single Todo based on the id
 

@@ -139,16 +139,18 @@ types:
                   "message": "An error has occurred in the server. Please try again later."
                 }
     patch:
-      description: Partial update to a single Todo based on the id
+      description: |
+        Partial update to a single Todo based on the id
+        Apply json-patch
       responses:
         200:
           body:
             application/json:
               example: |
                   {
-                    "status": [
-                      "ongoing"
-                    ]
+                    op:"replace",
+                    path:"/status",
+                    value:"ongoing"
                   }
         400:
           body:
@@ -164,7 +166,7 @@ types:
               example: |
                 {
                   "errorCode": 403,
-                  "message": "The property {id} is forbidden to be updated."
+                  "message": "The path is forbidden to be updated."
                 }
         404:
           body:
