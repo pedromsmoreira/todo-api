@@ -1,0 +1,30 @@
+{
+  "name": "todo-api",
+  "version": "1.0.0",
+  "description": "REST Todo List API",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "none"
+  },
+  "keywords": [
+    "REST",
+    "API",
+    "RAML"
+  ],
+  "author": "Pedro Moreira",
+  "license": "ISC",
+  "devDependencies": {
+    "body-parser": "^1.17.1",
+    "jslint": "^0.10.3",
+    "nodemon": "^1.11.0"
+  },
+  "dependencies": {
+    "express": "^4.15.2",
+    "mongoose": "^4.9.7"
+  }
+}
