@@ -142,6 +142,27 @@ types:
       description: |
         Partial update to a single Todo based on the id
         Apply json-patch
+      body:
+        application/json:
+          example:
+            [
+              {
+                op:"replace",
+                path:"/status",
+                value:"ongoing"
+              },
+              {
+                op:"add",
+                path:"/status",
+                value:"pending"
+              },
+
+              {
+                op:"replace",
+                path:"/name",
+                value:"Read about NodeJs."
+              }
+            ]
       responses:
         200:
           body:
@@ -167,7 +188,12 @@ types:
                 {
                   "errorCode": 403,
                   "message": "The path is forbidden to be updated."
+                }, |
+                {
+                  "errorCode": 403,
+                  "message": "Invalid property in op field. Read https://tools.ietf.org/html/rfc6902#section-4 to see available properties."
                 }
+
         404:
           body:
             application/json:
