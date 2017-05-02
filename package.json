@@ -20,6 +20,7 @@
   "license": "ISC",
   "devDependencies": {
     "body-parser": "^1.17.1",
+    "jshint": "^2.9.4",
     "jslint": "^0.10.3",
     "nodemon": "^1.11.0"
   },

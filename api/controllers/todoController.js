@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 var mongoose = require('mongoose'),
     Todo = mongoose.model('Todo');
@@ -35,6 +35,7 @@ exports.post = function(req, res) {
     });
 };
 
+// https://github.com/Starcounter-Jack/JSON-Patch
 exports.put = function(req, res) {
     Todo.findOneAndUpdate(req.params.id, req.body, {new: true}, function(err, todo) {
         if (err) {
